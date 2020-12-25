@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Рабочая карта СумыОнлайн</title>
+
+ <link rel="stylesheet" type="text/css" href="/css/newstyle.css"/> 
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<!-- jQuery UI library -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+
+<script src="https://tsamada.com.ua/wp-content/uploads/2012/06/jquery.tabslideout.v1.2.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.css" />
+
+
+<script src="https://api-maps.yandex.ru/2.1/?apikey=<AB83zFwBAAAAuxI7VQQAxcPL2ECTdvpfNLU1obAbhPxSPBcAAAAAAAAAAACj16HYWBvjIYRkOOPn1YCuZ8C0HA==>&lang=ru_RU" type="text/javascript"></script> 
+
+
+<script src="/js/maping.js"></script>
+
+
+<script type="text/javascript">
+$(function(){
+	$('.panel').tabSlideOut({							//Класс панели
+		tabHandle: '.handle',						//Класс кнопки
+		pathToTabImage: 'button.gif',				//Путь к изображению кнопки
+		imageHeight: '122px',						//Высота кнопки
+		imageWidth: '40px',						//Ширина кнопки
+		tabLocation: 'right',						//Расположение панели top - выдвигается сверху, right - выдвигается справа, bottom - выдвигается снизу, left - выдвигается слева
+		speed: 300,								//Скорость анимации
+		action: 'click',								//Метод показа click - выдвигается по клику на кнопку, hover - выдвигается при наведении курсора
+		topPos: '200px',							//Отступ сверху
+		fixedPosition: false						//Позиционирование блока false - position: absolute, true - position: fixed
+	});
+});
+</script>
+
+
+
+</head>
+
+
+
+<body>
+
+
+
+    <div id="map" style="width:1800px; height:900px;position: absolute; z-index:1; "></div>
+   
+
+<div class="panel" style="line-height: 1; position:absolute;height:400px;top:700px;right:194px;width:400px;font-weight:bold;">
+<a class="handle" href="http://jemand.ru" style="display: block; width:540px; height:622px; text-indent:99px; background: url(&quot;images/vydvigayushhayasya-s-lyuboj-storony-panel/button.gif&quot;) no-repeat; outline: none; position: absolute; top: 0px; left: -40px;">Content</a> <!-- Ссылка для пользователей с отключенным JavaScript -->
+
+
+<img src="/image/mufta.png" style="width:50px;position:absolute:z-index:5;border:none;left:14px;top:60px;">
+<img src="/image/del4.png" style="width:50px;position:absolute:z-index:5;border:none;left:14px;top:120px;">
+<img src="/image/maf4.png" style="width:50px;position:absolute;z-index:5;border:none;left:14px;top:180px;">
+<img src="/image/box.png" style="width:50px;position:absolute;z-index:5;border:none;left:14px;top:240px;">
+<img src="/image/bdcom.png" style="width:70px;position:absolute;z-index:5;border:none;left:14px;top:300px;">
+<img src="/image/1b.png" style="width:70px;position:absolute;z-index:5;border:none;left:14px;top:320px;">
+<img src="/image/1m.png" style="width:70px;position:absolute;z-index:5;border:none;left:220px;top:320px;">
+
+<b style="position:absolute;color:blue;font-size:28px;left:30px;">УСЛОВНЫЕ ОБОЗНАЧЕНИЯ</b>
+<a style="position:absolute;z-index:5;top:70px;left:80px;width:300px;">Муфта магистральная</a>
+<a style="position:absolute;z-index:5;left:80px;top:130px;width:300px;">Делитель абонентский</a>
+<a style="position:absolute;z-index:5;left:80px;top:190px;width:300px;">Делитель магистральный</a>
+<a style="position:absolute;z-index:5;left:80px;top:250px;width:300px;">Ящик магистральный</a>
+<a style="position:absolute;z-index:5;left:85px;top:300px;width:300px;">Оптический коммутатор BDCOM3310C</a>
+<a style="position:absolute;z-index:5;left:85px;top:350px;width:300px;">Опора с ящиком</a>
+<a style="position:absolute;z-index:5;left:295px;top:350px;width:300px;">Опора с муфтой</a>
+
+
+</div>
+
+
+<div id="grafo_data" style="display:none;position:absolute;z-index:27;top:60px;left:190px;color:black;font-size:140%;font-family:Helvetika;">
+
+</div><!-- grafo_data -->
+
+<div id="grafbar" class="ui-widget ui-corner-all ui-state-error" style="display:none;position:absolute;left:400px;top:180px;z-index:23;">
+
+<img src="/image/grafo.png" style="position:absolute;z-index:3;width:750px;height:470;left:10px;border:none;"</img>
+
+<button type="button" id="opow"><img src="/image/pb.png" style="width:40px;position:absolute;border:none;z-index:4;top:90px;left:110px;"/>
+
+<img src="/zabbix_images/1150.png" id="1150" style="position:absolute;z-index:24;color:black;left:90px;top:223px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1151.png" id="1151" style="position:absolute;z-index:24;color:black;left:415px;top:223px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1152.png" id="1152" style="position:absolute;z-index:24;color:black;left:90px;top:380px;Font-family:Arial;width:280px;"></img>
+<b style="position:absolute;z-index:24;color:black;left:415px;top:380px;Font-family:Arial;width:280px;">ПОРТ НЕ ЗАДЕЙСТВОВАН</b>
+
+</div>
+
+<div id="grafbas31" class="ui-widget ui-corner-all ui-state-error" style="display:none;position:absolute;left:400px;top:180px;z-index:23;">
+
+<img src="/image/grafo.png" style="position:absolute;z-index:3;width:750px;height:470;left:10px;border:none;"</img>
+
+<button type="button" id="opow"><img src="/image/pb.png" style="width:40px;position:absolute;border:none;z-index:4;top:90px;left:110px;"/>
+
+<img src="/zabbix_images/1149.png" id="1149" style="position:absolute;z-index:24;color:black;left:90px;top:223px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1166.png" id="1166" style="position:absolute;z-index:24;color:black;left:415px;top:223px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1167.png" id="1167" style="position:absolute;z-index:24;color:black;left:90px;top:380px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1168.png" id="1168" style="position:absolute;z-index:24;color:black;left:415px;top:380px;Font-family:Arial;width:280px;"></img>
+
+</div>
+
+<div id="grafbas29" class="ui-widget ui-corner-all ui-state-error" style="display:none;position:absolute;left:400px;top:180px;z-index:23;">
+
+<img src="/image/grafo.png" style="position:absolute;z-index:3;width:750px;height:470;left:10px;border:none;"</img>
+
+<button type="button" id="opow"><img src="/image/pb.png" style="width:40px;position:absolute;border:none;z-index:4;top:90px;left:110px;"/>
+
+<img src="/zabbix_images/1162.png" id="1162" style="position:absolute;z-index:24;color:black;left:90px;top:223px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1163.png" id="1163" style="position:absolute;z-index:24;color:black;left:415px;top:223px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1164.png" id="1164" style="position:absolute;z-index:24;color:black;left:90px;top:380px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1165.png" id="1165" style="position:absolute;z-index:24;color:black;left:415px;top:380px;Font-family:Arial;width:280px;"></img>
+
+</div>
+
+<div id="graftop40" class="ui-widget ui-corner-all ui-state-error" style="display:none;position:absolute;left:400px;top:180px;z-index:23;">
+
+<img src="/image/grafo.png" style="position:absolute;z-index:3;width:750px;height:470;left:10px;border:none;"</img>
+
+<button type="button" id="opow"><img src="/image/pb.png" style="width:40px;position:absolute;border:none;z-index:4;top:90px;left:110px;"/>
+
+<img src="/zabbix_images/1158.png" id="1158" style="position:absolute;z-index:24;color:black;left:90px;top:223px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1159.png" id="1159" style="position:absolute;z-index:24;color:black;left:415px;top:223px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1160.png" id="1160" style="position:absolute;z-index:24;color:black;left:90px;top:380px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1161.png" id="1161" style="position:absolute;z-index:24;color:black;left:415px;top:380px;Font-family:Arial;width:280px;"></img>
+
+</div>
+
+<div id="graftop44" class="ui-widget ui-corner-all ui-state-error" style="display:none;position:absolute;left:400px;top:180px;z-index:23;">
+
+<img src="/image/grafo.png" style="position:absolute;z-index:3;width:750px;height:470;left:10px;border:none;"</img>
+
+<button type="button" id="opow"><img src="/image/pb.png" style="width:40px;position:absolute;border:none;z-index:4;top:90px;left:110px;"/>
+
+<img src="/zabbix_images/1154.png" id="1154" style="position:absolute;z-index:24;color:black;left:90px;top:223px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1155.png" id="1155" style="position:absolute;z-index:24;color:black;left:415px;top:223px;Font-family:Arial;width:280px;"></img>
+<img src="/zabbix_images/1156.png" id="1156" style="position:absolute;z-index:24;color:black;left:90px;top:380px;Font-family:Arial;width:280px;"></img>
+<b style="position:absolute;z-index:24;color:black;left:415px;top:380px;Font-family:Arial;width:280px;">ПОРТ НЕ ЗАДЕЙСТВОВАН</b>
+
+</div>
+
+
+
+<div id="b1150" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1150.png" id="q1150" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+
+<div id="b1151" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1151.png" id="q1151" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1152" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1152.png" id="q1152" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1149" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1149.png" id="q1149" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1166" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1166.png" id="q1166" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1167" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1167.png" id="q1167" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1168" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1168.png" id="q1168" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1162" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1162.png" id="q1162" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1163" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1163.png" id="q1163" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1164" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1164.png" id="q1164" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1165" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1165.png" id="q1165" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1158" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1158.png" id="q1158" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1159" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1159.png" id="q1159" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1160" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1160.png" id="q1160" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1161" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1161.png" id="q1161" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1154" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1154.png" id="q1154" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1155" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1155.png" id="q1155" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+<div id="b1156" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1156.png" id="q1156" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+<div id="b1157" style="display:none;position:absolute;left:400px;top:20px;z-index:24;width:1120px;height:800px;">
+
+
+<img src="/zabbix_images/1157.png" id="q1157" style="position:absolute;z-index:25;width:1000px;height:700px;left:10px;border:none;"</img>
+
+
+</div>
+
+
+
+<div id="cis3750" style="display:none;background-color:green;position:absolute;left:400px;top:60px;z-index:3;width:12000px;height:800px;background-color: rgba(124, 155, 155, 0.5);">
+
+<button type="button" id="dex"><img src="/image/exit.png" style="width:40px;position:absolute;z-index:5;top:20px;left:750px;"/></button>
+
+
+<div id="diagnos_data" style="z-index:4;left:30px;">
+
+</div>
+
+
+</div>
+
+
+<div id="edge" class="ui-widget ui-corner-all ui-state-error"  style="display:none;background-color:green;position:absolute;left:400px;top:60px;z-index:3;width:1400px;height:800px;background-color: rgba(124, 155, 155, 0.5);">
+
+<button type="button" id="egex"><img src="/image/exit.png" style="width:40px;position:absolute;z-index:5;top:20px;left:1300px;"/></button>
+
+<button id="pin"></button>
+
+<div id="edge_data" style="position:absolute;z-index:4;left:10px;overflow-y:scroll;height:700px;"></div>
+
+<div id="edge_ping" style="position:absolute;z-index:4;width:250px;height:600px;left:970px;background-color:blue;"></div>
+
+<div id="ping_edge" style="position:absolute;z-index:7;width:200px;top:35px;left:1000px;color:white;">
+
+
+</div><!-- ping_edge -->
+
+</div>
+
+
+
+<div id="del" class="ui-widget ui-corner-all ui-state-error" style="display:none;position:absolute;z-index:3;width:700px;height:950px;">
+
+<img src="/image/dels.png" style="position:absolute;z-index:4;width:700px;height:850px;left:10px;border:none;"</img>
+
+<img src="/image/insdel.png" id="adm" style="position:absolute;z-index:4;width:180px;height:50px;left:20px;top:680px;border:none;"</img>
+<img src="/image/deldel.png" style="position:absolute;z-index:4;width:180px;height:50px;left:20px;top:730px;border:none;"</img>
+<img src="/image/fotodel.png" id="foto" style="position:absolute;z-index:4;width:180px;height:48px;left:203px;top:680px;border:none;"</img>
+<img src="/image/exitdel.png" id="lex" style="position:absolute;z-index:4;width:180px;height:48px;left:203px;top:730px;border:none;"</img>
+
+
+
+<div id="user_data" style="position:absolute;z-index:8;top:23px;left:20px;">
+
+ <link rel="stylesheet" type="text/css" href="/css/newstyle.css"/>
+
+
+   </div><!-- user_data -->
+
+<div id="logo_data" style="position:absolute;z-index:9;left:30px;top:600px;">
+
+</div><!-- logo_data -->
+
+   
+   </div>
+   
+   
+  <div id="onu" style="display:none;">                                                             
+  
+  
+  <img src="/image/oninfo.png"  style="position:absolute;z-index:6;width:600px;height:600px;left:20px;top:20px;"</img>
+ 
+<button onclick="ping" id="ping" style="position:absolute;z-index:7;left:60px;top:235px;font-family:ArialBlack;font-size:120%;">PING</button>
+
+<button type="button" id="clonu"><img src="/image/exit.png" style="width:40px;position:absolute;z-index:8;left:570px;top:60px;border:none;"/></button>
+  
+</div>
+   
+
+
+<div id="test_data"  class="ui-widget ui-corner-all ui-state-error"  style="display:none;position:absolute;z-index:16;top:30px;left:110px;width:1200px;height:600px;color:black;;overflow-y:scroll;">
+
+</div><!-- test_data -->
+
+
+<div id="ping_data" style="position:absolute;z-index:7;width:200px;top:248px;left:45px;color:black;"> 
+
+
+ 
+<div id="logoolt_data" class="ui-widget-content" style="position:absolute;z-index:7;">
+
+
+</div><!-- 
+logoolt_data -->
+
+
+
+<div id="del_data"   style="position:absolute;z-index:12;top:70px;left:860px;">
+
+</div><!-- del_data -->
+
+
+
+<div id="olt_data"  class="ui-widget ui-corner-all ui-state-error" style="display:none;position:absolute;z-index:17;width:1200px;height:640px;left:30px;overflow-y:scroll;">
+
+</div>
+<div id="oltik" style="display:none;position:absolute;z-index:15;left:30px;width:1100px;height:640px;overflow-y:scroll;background-color:rgba(124, 155, 155, 0.5);">
+
+<button type="button" id="clolt"><img src="/image/exit.png" style="width:40px;position:absolute;z-index:17;left:1000px;top:50px;border:none;"/></button>
+
+</div><!-- oltik -->
+
+
+
+<div id="editor"  class="ui-widget ui-corner-all ui-state-error" style="display:none;position:absolute;z-index:10;width:900px;height:300px;left:600px;">
+<img src="/image/insertdel.png" style="position:absolute;z-index:4;width:800px;height:540px;left:10px;border:none;"</img>
+<img src="/image/vibon.png" id="vib" style="position:absolute;z-index:12;width:270px;height:90px;left:350px;top:20px;border:none;"</img>
+<img src="/image/pron.png" id ="ins" style="position:absolute;z-index:4;width:300px;height:150px;left:10px;top:380px;border:none;"</img>
+<input type="text"  style="position:absolute;z-index:4;left:50px;width:290px;top:50px;border:none" id="skill_input"/>
+
+
+
+<img src="/image/exitins.png" id ="cledit" style="position:absolute;z-index:4;width:50px;height:80px;left:640px;top:20px;border:none;"</img>
+
+<b>ПРИВЯЗКА К ДЕЛИТЕЛЮ</b>
+
+<div id="editor_data" style="position:absolute;z-index:12;top:140px;left:40px;border:none;">
+
+
+   </div><!-- editor_data -->
+
+<div id="insert_data"   style="position:absolute;z-index:18;top:250px;left:260px;">
+
+</div><!-- insert_data -->
+
+</div>
+
+
+
+<div id="delitor" style="display:none;position:absolute;z-index:10;width:900px;height:300px;left:850px;background-color:rgba(210,215,215,0.7);">
+<label style="position:absolute;z-index:11;top:30px;">ПОИСК ПО ДЕЛИТЕЛЮ:</label>
+<input type="text" style="position:absolute;z-index:4;left:190px;width:290px;top:30px;" id="skill_del"/>
+
+<button type="button" id="cldel"><img src="/image/exit.png" style="width:40px;position:absolute;z-index:11;left:820px;top:10px;border:none;"/></button>
+
+<button id="vib2" style="position:absolute;z-index:4;left:490px;top:30px;">ВЫПОЛНИТЬ</button>
+<button id="delets" style="position:absolute;z-index:4;left:10px;top:240px;">УДАЛИТЬ</button>
+
+<a style="position:absolute;z-index:9;top:260px;left:10px;">CAUSA DELETE</a>
+<input type="text" style="position:absolute;z-index:4;left:190px;width:290px;top:260px;" id="causa"/>
+
+
+<b>УДАЛЕНИЕ КЛИЕНТА С ДЕЛИТЕЛЯ</b>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+<div id="olt" class="ui-widget-content" style="display:none;position:absolute;left:10px;top:60px;z-index:3;">
+
+<img src="/image/olt2.png" style="position:absolute;z-index:4;width:1300px;height:540px;left:10px;border:none;"</img>
+
+
+<img src="/image/str.png" id="blk"  style="position:absolute;top:390px;left:579px;z-index:5;width:120px;height:140px;border:none;"</img>
+<img src="/image/grp.png" id="gr"   style="position:absolute;top:355px;left:664px;z-index:5;width:123px;height:140px;border:none;"</img>
+<img src="/image/std.png" id="tab"  style="position:absolute;top:322px;left:748px;z-index:5;width:123px;height:140px;border:none;"</img>
+<img src="/image/klm.png" id="klient" style="position:absolute;top:290px;left:835px;z-index:8;width:128px;height:140px;border:none;"</img>
+<img src="/image/mph.png" id="mag2" style="position:absolute;top:242px;left:899px;z-index:5;width:132px;height:140px;border:none;"</img>
+
+
+
+<img src="/image/bara45.png" id="bara45" style="display:none;position:absolute;z-index:4;width:300px;height:150px;left:110px;top:150px;border:none;"</img>
+<img src="/image/to40.png" id="to40" style="display:none;position:absolute;z-index:4;width:300px;height:150px;left:110px;top:150px;border:none;"</img>
+<img src="/image/to44.png" id="to44" style="display:none;position:absolute;z-index:4;width:300px;height:150px;left:110px;top:150px;border:none;"</img>
+<img src="/image/ba29.png" id="ba29" style="display:none;position:absolute;z-index:4;width:300px;height:150px;left:110px;top:150px;border:none;"</img>
+<img src="/image/ba31.png" id="ba31" style="display:none;position:absolute;z-index:4;width:300px;height:150px;left:110px;top:150px;border:none;"</img>
+
+<img src="/image/off.png" id="off1" style="display:none;position:absolute;z-index:4;width:20px;height:20px;left:335px;top:115px;border:none;"</img>
+<img src="/image/off.png" id="off2" style="display:none;position:absolute;z-index:4;width:20px;height:20px;left:374px;top:115px;border:none;"</img>
+<img src="/image/off.png" id="off3" style="display:none;position:absolute;z-index:4;width:20px;height:20px;left:413px;top:115px;border:none;"</img>
+<img src="/image/off.png" id="off4" style="display:none;position:absolute;z-index:4;width:20px;height:20px;left:450px;top:115px;border:none;"</img>
+
+<img src="/image/pb.png" id="wek" style="position:absolute;z-index:4;width:60px;height:50px;left:150px;top:122px;border:none;"</img>
+
+<img src="/image/on.png" id="on1" style="display:none;position:absolute;z-index:4;width:20px;height:20px;left:335px;top:115px;border:none;"</img>
+<img src="/image/on.png" id="on2" style="display:none;position:absolute;z-index:4;width:20px;height:20px;left:374px;top:115px;border:none;"</img>
+<img src="/image/on.png" id="on3" style="display:none;position:absolute;z-index:4;width:20px;height:20px;left:413px;top:115px;border:none;"</img>
+<img src="/image/on.png" id="on4" style="display:none;position:absolute;z-index:4;width:20px;height:20px;left:450px;top:115px;border:none;"</img>
+
+<button id="first" style="position:absolute;background-color:rgba(0,50,50,0.1);border:none;z-index:4;height:40px;width:35px;left:327px;top:100px;"></button>
+<button id="second" style="position:absolute;background-color:rgba(0,50,50,0.1);border:none;z-index:4;height:40px;width:35px;left:366px;top:100px;"></button>
+<button id="three" style="position:absolute;background-color:rgba(0,50,50,0.1);border:none;z-index:4;height:40px;width:35px;left:404px;top:100px;"></button>
+<button id="four" style="position:absolute;background-color:rgba(0,50,50,0.1);border:none;z-index:4;height:40px;width:35px;left:441px;top:100px;"></button>
+
+<img src="/image/ind.png" style="position:absolute;z-index:4;width:260px;height:80px;left:895px;top:95px;border:none;"</img>
+
+<div id="info_port"   style="position:absolute;z-index:12;top:138px;left:747px;">
+
+</div><!-- info_port -->
+
+
+</div>
+
+
+
+<div id="block" class="ui-widget-content" style="display:none">
+
+<img src="/image/Baranovka.png" style="background-color:cadetblue;position:absolute;z-index:4;width:1200px;height:700px;left:160px;top:80px;background-color: rgba(124, 155, 155, 0.5);"</img>
+<button type="button" id="ex"><img src="/image/exit.png" style="width:40px;position:absolute;z-index:5;top:90px;left:1300px;"/></button>
+</div>
+
+
+<div id="ports" class="ui-widget-content" style="display:none;position:absolute;z-index:4;border:none;">
+
+<img src="/image/ports.png" style="position:absolute;left:100px;z-index:5;width:400px;height:400px;border:none;"</img>
+
+<p style="position:absolute;z-index:8;left:160px;width:200px;top:180px;"><input type="checkbox" id="vse" value="ВСЕ" onclick="vse">Выбрать все</p>
+<p style="position:absolute;z-index:8;left:160px;width:200px;top:100px;"><input type="checkbox" id="port1"value="1" >Первый порт</p>
+<p style="position:absolute;z-index:8;left:160px;width:200px;top:120px;"><input type="checkbox" id="port2" value="2">Второй порт</p>
+<p style="position:absolute;z-index:8;left:160px;width:200px;top:140px;"><input type="checkbox" id="port3" value="3">Третий порт</p>
+<p style="position:absolute;z-index:8;left:160px;width:200px;top:160px;"><input type="checkbox" id="port4" value="4">Четвертый порт</p>
+<button id="pok" style="position:absolute;z-index:8;left:280px;width:150px;top:240px;font-size:14px;font-weight:bold;">ОТОБРАЗИТЬ</button>
+<button id="klexit" style="position:absolute;z-index:8;left:280px;width:150px;top:270px;font-size:14px;font-weight:bold;">ВЫХОД</button>
+
+</div>
+
+</div> 
+
+<hr>
+
+</div>
+
+</body>
+
+</html>
